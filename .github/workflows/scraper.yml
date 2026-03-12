@@ -3,7 +3,7 @@ name: Scrape Mittog Data
 # This tells GitHub WHEN to run the script
 on:
   schedule:
-    - cron: "0 * * * *"  # Runs at the top of every hour
+    - cron: "15 * * * *"  # Runs at the top of every hour
   workflow_dispatch:     # Adds a button so you can run it manually from the UI
 
 jobs:
