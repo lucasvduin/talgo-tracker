@@ -1,0 +1,40 @@
+name: Scrape Mittog Data
+
+# This tells GitHub WHEN to run the script
+on:
+  schedule:
+    - cron: "0 * * * *"  # Runs at the top of every hour
+  workflow_dispatch:     # Adds a button so you can run it manually from the UI
+
+jobs:
+  scrape-and-save:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write    # Double-ensures it has permission to save files
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python scrape_padborg.py
+
+      - name: Commit and push new data
+        run: |
+          # Set up the "bot" that will make the commit
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # Stage the CSV and the jsons folder
+          git add hamburg_cph_trains.csv jsons/
+          
+          # Only commit if there are actually changes (prevents the workflow from failing if no new trains are found)
+          git diff --staged --quiet || (git commit -m "Automated data update" && git push)
