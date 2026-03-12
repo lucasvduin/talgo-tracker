@@ -90,3 +90,64 @@
                         const labels = Object.keys(chartData).sort((a, b) => parseInt(a) - parseInt(b));
                         
                         // Create datasets for Chart.js
+                        const datasets = Array.from(allCategories).map(category => {
+                            return {
+                                label: category,
+                                data: labels.map(id => chartData[id][category] || 0),
+                                backgroundColor: categoryColors[category] || '#cccccc',
+                                borderWidth: 1
+                            };
+                        });
+
+                        // 2. Draw the Stacked Bar Chart
+                        const ctx = document.getElementById('trainChart').getContext('2d');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: datasets
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: { 
+                                    x: { stacked: true },
+                                    y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1 } } 
+                                },
+                                plugins: {
+                                    title: { display: true, text: 'Train Equipment History by Train ID' }
+                                }
+                            }
+                        });
+
+                        // 3. Populate the Table with the 15 most recent trains
+                        const tbody = document.querySelector('#trainTable tbody');
+                        const recentData = data.slice().reverse().slice(0, 15);
+                        
+                        recentData.forEach(row => {
+                            const tr = document.createElement('tr');
+                            
+                            // Make cancelled rows slightly greyed out in the table for visual clarity
+                            if (row['Status'] && row['Status'].includes('Cancelled')) {
+                                tr.style.color = '#777';
+                                tr.style.backgroundColor = '#fdfdfd';
+                            }
+
+                            tr.innerHTML = `
+                                <td>${row['Scheduled Date']}</td>
+                                <td>${row['Scheduled Time']}</td>
+                                <td>${row['Train ID']}</td>
+                                <td>${row['Origin']} ➔ ${row['Destination']}</td>
+                                <td><strong>${row['Train Type Classification']}</strong></td>
+                                <td>${row['Status']}</td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    }
+                });
+            })
+            .catch(error => console.error("Error loading CSV:", error));
+    </script>
+
+</body>
+</html>
