@@ -1,0 +1,34 @@
+name: Fix Historical CSV Data
+
+# This allows you to trigger it manually from the Actions tab
+on:
+  workflow_dispatch: 
+
+jobs:
+  fix-csv:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # If you need requirements for this script, uncomment the line below
+      # - name: Install dependencies
+      #   run: pip install -r requirements.txt
+
+      - name: Run fix script
+        run: python fix_historical_data.py
+
+      - name: Commit and push fixed CSV
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add hamburg_cph_trains.csv
+          git diff --staged --quiet || (git commit -m "Fix historical Railjet data" && git push)
