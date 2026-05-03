@@ -32,12 +32,16 @@ def classify_train(unit_types):
         return "IC3"
     elif any(ut in ut_set for ut in ["BPD", "APT", "BPT", "BPH"]):
         return "Talgo"
+    # NEW: Added Czech Railways Railjet coach classifications
+    elif any(ut in ut_set for ut in ["AFMPZ", "AMPZ", "BRMPZ", "BBMPZ", "BMPZ", "BDMPZ"]):
+        return "Railjet"
     elif any(ut in ut_set for ut in ["BV", "BPX", "AV", "BVS", "BPB"]):
         return "German IC Coaches"
     elif ut_set == {"EB"}:
         return "Vectron-hauled"
     else:
         return "Unknown"
+
 
 def main():
     # 1. Fetch Deduplication Data
