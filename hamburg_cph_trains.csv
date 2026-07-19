@@ -1583,3 +1583,6 @@
 2026-07-19 17:12:12;20-07-2026;11:02:30;393;Scheduled;KD;HMB;Talgo;17 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
 2026-07-19 19:22:00;20-07-2026;13:02:30;13465;Cancelled;KH;HMB;Vectron-hauled;2 cars (Nos. 1-2);EB + EB
 2026-07-19 19:22:00;20-07-2026;13:03:00;396;Scheduled;HMB;KH;Talgo;17 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD + EB
+2026-07-19 21:03:53;20-07-2026;14:03:00;1196;Scheduled;AHAR;FA;Talgo;17 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD + EB
+2026-07-19 21:03:53;20-07-2026;15:02:30;395;Scheduled;KD;HMB;IC3;4 cars (Nos. 81-92);MFU + MFU
+2026-07-19 21:03:53;20-07-2026;15:03:00;13464;Cancelled;AHAR;KH;Railjet;9 cars (Nos. 255-263);AFMPZ + AMPZ + BRMPZ + BBMPZ + BMPZ + BMPZ + BMPZ + BMPZ + BDMPZ
