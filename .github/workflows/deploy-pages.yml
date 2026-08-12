@@ -16,18 +16,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24  # Upgraded to Node 24 to fix the deprecation warning
 
       - name: Build React Dashboard
         working-directory: ./dashboard
         run: |
-          npm ci
+          npm install       # Changed from npm ci to npm install
           npm run build
-
+          
       - name: Prepare GitHub Pages Structure
         run: |
           mkdir _site
