@@ -1975,8 +1975,8 @@
 2026-08-12 13:55:50;12-08-2026;15:02:30;395;Cancelled;PA;HMB;Talgo;17 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
 2026-08-12 15:40:28;12-08-2026;15:03:00;13464;Scheduled;AHAR;KH;Railjet;10 cars (Nos. 1-263);EB + BDMPZ + BMPZ + BMPZ + BMPZ + BMPZ + BBMPZ + BRMPZ + AMPZ + AFMPZ
 2026-08-12 15:40:28;12-08-2026;17:02:30;397;Scheduled;KH;HMB;Talgo;17 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD + EB
-2026-08-12 15:40:28;12-08-2026;17:03:00;394;Scheduled;HMB;KH;Talgo;17 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
-2026-08-12 15:40:28;12-08-2026;19:03:00;13462;Scheduled;HMB;KH;Railjet;11 cars (Nos. 1-263);EB + BDMPZ + BMPZ + BMPZ + BMPZ + BMPZ + BBMPZ + BRMPZ + AMPZ + AFMPZ + EB
-2026-08-12 15:40:28;12-08-2026;21:02:30;1199;Scheduled;KH;AP;Talgo;17 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD + EB
-2026-08-12 15:40:28;12-08-2026;21:03:00;392;Cancelled;HMB;KH;Vectron-hauled;2 cars (Nos. 1-2);EB + EB
-2026-08-12 15:40:28;13-08-2026;02:19:00;466;Scheduled;HMB;CPH;Talgo;17 cars (Nos. 111-145);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
+2026-08-12 17:10:57;12-08-2026;17:03:00;394;Scheduled;HMB;KH;Talgo;17 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
+2026-08-12 17:10:57;12-08-2026;19:03:00;13462;Scheduled;HMB;KH;Railjet;11 cars (Nos. 1-263);EB + BDMPZ + BMPZ + BMPZ + BMPZ + BMPZ + BBMPZ + BRMPZ + AMPZ + AFMPZ + EB
+2026-08-12 17:10:57;12-08-2026;21:02:30;1199;Scheduled;KH;AP;Talgo;17 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD + EB
+2026-08-12 17:10:57;12-08-2026;21:03:00;392;Cancelled;HMB;KH;Vectron-hauled;2 cars (Nos. 1-2);EB + EB
+2026-08-12 17:10:57;13-08-2026;02:19:00;466;Scheduled;HMB;CPH;Talgo;17 cars (Nos. 111-145);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
