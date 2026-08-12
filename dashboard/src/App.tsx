@@ -30,10 +30,6 @@ export default function App() {
     if (allLogs.length > 0) return; // Already loaded via embedded raw bundle
 
     fetch(`https://raw.githubusercontent.com/lucasvduin/talgo-tracker/main/hamburg_cph_trains.csv?t=${Date.now()}`)
-          .then((res) => {
-                  if (!res.ok) throw new Error(`HTTP ${res.status}: Failed to load CSV data`);
-                        
-                        
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}: Failed to load CSV data`);
         return res.text();
