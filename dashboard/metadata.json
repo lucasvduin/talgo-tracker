@@ -1,0 +1,6 @@
+{
+  "name": "Talgo Tracker",
+  "description": "Detailed equipment tracking, rolling stock classification, and statistics per train number for Hamburg - Copenhagen train corridor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
