@@ -6,7 +6,6 @@ import { CorridorOverview } from './components/CorridorOverview';
 import { TrainDetailView } from './components/TrainDetailView';
 import { TrainComparisonView } from './components/TrainComparisonView';
 import { Train, RefreshCw, AlertCircle } from 'lucide-react';
-import rawCsvData from './data/hamburg_cph_trains.csv?raw';
 
 export default function App() {
   const [allLogs, setAllLogs] = React.useState<TrainLog[]>(() => {
