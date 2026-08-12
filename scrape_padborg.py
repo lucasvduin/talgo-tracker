@@ -1,7 +1,7 @@
 import json
 import csv
 import os
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from websocket import create_connection
 
 CSV_FILENAME = "hamburg_cph_trains.csv"
@@ -9,18 +9,16 @@ WS_URL = "wss://api.mittog.dk/api/ws/departure/PA/dinstation/"
 JSON_DIR = "jsons"
 
 def get_logged_trains(filename):
-    """Reads the CSV and returns a set of (Train ID, Scheduled Date) tuples to prevent cross-day duplicates."""
-    logged_trains = set()
+    """Reads the CSV and returns a dictionary of rows keyed by (Train ID, Scheduled Date)."""
+    logged_trains = {}
     
     if not os.path.exists(filename):
         return logged_trains
         
-    # Updated: Using utf-8-sig and delimiter=";" to match the writer
     with open(filename, mode="r", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f, delimiter=";")
         for row in reader:
-            # Store a tuple of both ID and Date
-            logged_trains.add((row.get("Train ID"), row.get("Scheduled Date")))
+            logged_trains[(row.get("Train ID"), row.get("Scheduled Date"))] = row
                 
     return logged_trains
 
@@ -28,25 +26,20 @@ def classify_train(unit_types):
     """Classifies the train type based on UnitType values."""
     ut_set = set(unit_types)
     
-    if any(ut in ut_set for ut in ["MFU", "ER"]):
-        return "IC3"
-    elif any(ut in ut_set for ut in ["BPD", "APT", "BPT", "BPH"]):
-        return "Talgo"
-    # NEW: Added Czech Railways Railjet coach classifications
-    elif any(ut in ut_set for ut in ["AFMPZ", "AMPZ", "BRMPZ", "BBMPZ", "BMPZ", "BDMPZ"]):
-        return "Railjet"
-    elif any(ut in ut_set for ut in ["BV", "BPX", "AV", "BVS", "BPB"]):
-        return "German IC Coaches"
-    elif ut_set == {"EB"}:
-        return "Vectron-hauled"
-    else:
-        return "Unknown"
-
+    if any(ut in ut_set for ut in ["MFU", "ER"]): return "IC3"
+    elif any(ut in ut_set for ut in ["BPD", "APT", "BPT", "BPH"]): return "Talgo"
+    elif any(ut in ut_set for ut in ["AFMPZ", "AMPZ", "BRMPZ", "BBMPZ", "BMPZ", "BDMPZ"]): return "Railjet"
+    elif any(ut in ut_set for ut in ["BV", "BPX", "AV", "BVS", "BPB"]): return "German IC Coaches"
+    elif ut_set == {"EB"}: return "Vectron-hauled"
+    else: return "Unknown"
 
 def main():
-    # 1. Fetch Deduplication Data
+    # 1. Fetch Existing Data into a Dictionary
     logged_trains = get_logged_trains(CSV_FILENAME)
-    current_time = datetime.now()
+    
+    # Use explicit timezone (CEST is UTC+2)
+    tz_cest = timezone(timedelta(hours=2))
+    current_time = datetime.now(tz_cest)
     today_prefix = current_time.strftime("%Y-%m-%d %H:%M:%S")
 
     # 2. Connect to WebSocket and retrieve payload
@@ -61,7 +54,7 @@ def main():
 
     data = json.loads(result)
     
-    # Save raw JSON to a file
+    # Save raw JSON to a file (for GitHub Artifacts)
     os.makedirs(JSON_DIR, exist_ok=True)
     json_filename = os.path.join(JSON_DIR, f"mittog_data_{current_time.strftime('%Y%m%d_%H%M%S')}.json")
     with open(json_filename, "w", encoding="utf-8") as json_file:
@@ -69,7 +62,6 @@ def main():
     print(f"Saved raw JSON payload to {json_filename}")
 
     trains = data.get("data", {}).get("Trains", [])
-    new_rows = []
 
     # 3. Parse and Filter Trains
     for train in trains:
@@ -80,27 +72,17 @@ def main():
         if product in ["HM", "IC", "TRAINBUS"]:
             continue
             
-        # Extract Scheduled Date immediately for deduplication
         schedule_time_dep = train.get("ScheduleTimeDeparture", "")
         split_time = schedule_time_dep.split(" ")
         
         if len(split_time) == 2:
-            sched_date = split_time[0]
-            sched_time = split_time[1]
+            sched_date, sched_time = split_time[0], split_time[1]
         else:
-            sched_date = "Unknown"
-            sched_time = "Unknown"
+            sched_date, sched_time = "Unknown", "Unknown"
 
-        # Safe Deduplication check: Has this specific train on this specific day been logged?
-        if (pub_id, sched_date) in logged_trains:
-            continue
-            
-        # Parse Routes array for data extraction & INCLUDE rule checking
+        # Parse Routes array
         routes = train.get("Routes", [])
-        origins = []
-        destinations = []
-        unit_types = []
-        door_numbers = []
+        origins, destinations, unit_types, door_numbers = [], [], [], []
         
         for r in routes:
             orig = r.get("OriginStationId", "").replace("&", "")
@@ -128,7 +110,6 @@ def main():
             continue
 
         # 4. Extract Specific Data
-        # Status Check (Only looking at Departure)
         changes_to = train.get("ChangesTo", [])
         is_cancelled_dep = train.get("IsCancelledDeparture", False)
         
@@ -139,21 +120,17 @@ def main():
         else:
             status = "Scheduled"
 
-        # Classify
         train_type = classify_train(unit_types)
         
-        # Carriage Info
         if door_numbers:
-            total_cars = len(door_numbers)
-            range_str = f"{min(door_numbers)}-{max(door_numbers)}"
-            carriage_info = f"{total_cars} cars (Nos. {range_str})"
+            carriage_info = f"{len(door_numbers)} cars (Nos. {min(door_numbers)}-{max(door_numbers)})"
         else:
             carriage_info = "0 cars"
             
         raw_units = " + ".join(unit_types)
         
-        # Append to our new rows list
-        new_rows.append({
+        # Construct the updated row
+        new_row = {
             "Timestamp": today_prefix,
             "Scheduled Date": sched_date,
             "Scheduled Time": sched_time,
@@ -164,28 +141,29 @@ def main():
             "Train Type Classification": train_type,
             "Carriage Info": carriage_info,
             "Raw Units": raw_units
-        })
+        }
 
-    # 5. Write to CSV
-    if not new_rows:
-        print("No new matching trains to log to CSV at this time.")
+        # Dict assignment overwrites stale data with fresh data
+        logged_trains[(pub_id, sched_date)] = new_row
+
+    # 5. Write the dictionary back to CSV
+    if not logged_trains:
+        print("No matching trains to log to CSV at this time.")
         return
 
-    file_exists = os.path.exists(CSV_FILENAME)
     fieldnames = [
         "Timestamp", "Scheduled Date", "Scheduled Time", 
         "Train ID", "Status", "Origin", "Destination", 
         "Train Type Classification", "Carriage Info", "Raw Units"
     ]
     
-    # Updated: Using utf-8-sig to force Excel to read special characters, and delimiter=";" to separate columns
-    with open(CSV_FILENAME, mode="a", newline="", encoding="utf-8-sig") as f:
+    with open(CSV_FILENAME, mode="w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter=";")
-        if not file_exists:
-            writer.writeheader()
-        writer.writerows(new_rows)
+        writer.writeheader()
+        writer.writerows(logged_trains.values())
         
-    print(f"Successfully logged {len(new_rows)} new train(s) to {CSV_FILENAME}.")
+    print(f"Successfully updated CSV with {len(logged_trains)} total tracked train(s).")
 
 if __name__ == "__main__":
     main()
+    
