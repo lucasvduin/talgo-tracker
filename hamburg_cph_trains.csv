@@ -2115,10 +2115,10 @@
 2026-08-20 13:37:38;20-08-2026;14:03:00;1196;Scheduled;AA;KH;IC3;4 cars (Nos. 71-82);MFU + MFU
 2026-08-20 15:55:36;20-08-2026;15:02:30;2605;Scheduled;KH;AA;Talgo;16 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD
 2026-08-20 15:07:41;20-08-2026;15:03:00;384;Scheduled;AA;KH;Railjet;10 cars (Nos. 1-263);EB + BDMPZ + BMPZ + BMPZ + BMPZ + BMPZ + BBMPZ + BRMPZ + AMPZ + AFMPZ
-2026-08-20 15:55:36;20-08-2026;17:02:30;2607;Scheduled;KH;AA;Talgo;16 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD
-2026-08-20 15:55:36;20-08-2026;17:03:00;394;Cancelled;AA;KH;Talgo;17 cars (Nos. 1-111);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
-2026-08-20 15:55:36;20-08-2026;19:03:00;382;Scheduled;AA;KH;Railjet;11 cars (Nos. 1-263);EB + BDMPZ + BMPZ + BMPZ + BMPZ + BMPZ + BBMPZ + BRMPZ + AMPZ + AFMPZ + EB
-2026-08-20 15:55:36;20-08-2026;21:02:30;92619;Scheduled;KH;AA;Talgo;16 cars (Nos. 2-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD
-2026-08-20 15:55:36;20-08-2026;21:03:00;392;Scheduled;AA;KH;Talgo;16 cars (Nos. 11-111);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD
-2026-08-20 15:55:36;21-08-2026;02:19:00;466;Scheduled;AA;CPH;Talgo;16 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD
-2026-08-20 15:55:36;21-08-2026;02:37:00;13467;Scheduled;KH;AA;Talgo;16 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD
+2026-08-20 16:51:17;20-08-2026;17:02:30;2607;Scheduled;KH;AA;Talgo;16 cars (Nos. 1-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD
+2026-08-20 16:51:17;20-08-2026;17:03:00;394;Cancelled;AA;KH;Talgo;17 cars (Nos. 1-111);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD + EB
+2026-08-20 16:51:17;20-08-2026;19:03:00;382;Scheduled;AA;KH;Railjet;11 cars (Nos. 1-263);EB + BDMPZ + BMPZ + BMPZ + BMPZ + BMPZ + BBMPZ + BRMPZ + AMPZ + AFMPZ + EB
+2026-08-20 16:51:17;20-08-2026;21:02:30;92619;Scheduled;KH;AA;Talgo;16 cars (Nos. 2-25);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD
+2026-08-20 16:51:17;20-08-2026;21:03:00;392;Scheduled;AA;KH;Talgo;16 cars (Nos. 11-111);EB + BPD + APT + AP + BPH + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BPD
+2026-08-20 16:51:17;21-08-2026;02:19:00;466;Scheduled;AA;CPH;Talgo;16 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD
+2026-08-20 16:51:17;21-08-2026;02:37:00;13467;Scheduled;KH;AA;Talgo;16 cars (Nos. 1-25);EB + BPD + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPT + BP + BPH + AP + APT + BPD
